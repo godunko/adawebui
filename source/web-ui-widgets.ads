@@ -41,15 +41,15 @@
 ------------------------------------------------------------------------------
 --  $Revision: 5872 $ $Date: 2018-09-22 11:56:07 +0200 (Sat, 22 Sep 2018) $
 ------------------------------------------------------------------------------
---private with WebAPI.DOM.Events;
---private with WebAPI.DOM.Event_Listeners;
+private with Web.DOM.Events;
+private with Web.DOM.Event_Listeners;
 with Web.HTML.Elements;
 
 with Web.Core.Connectables;
 private with Web.Core.Connectables.Slots_0.Slots_1.Generic_Slots;
 with Web.UI.Boolean_Slots;
 --with WUI.Events.Mouse.Button;
---with WUI.Events.Mouse.Click;
+with Web.UI.Events.Mouse.Click;
 --with WUI.Events.Mouse.Move;
 --with WUI.Events.Mouse.Wheel;
 
@@ -69,10 +69,10 @@ package Web.UI.Widgets is
     (Self : in out Abstract_Widget'Class)
        return Web.UI.Boolean_Slots.Slot'Class;
 
---   not overriding procedure Click_Event
---    (Self  : in out Abstract_Widget;
---     Event : in out WUI.Events.Mouse.Click.Click_Event'Class) is null;
---
+   not overriding procedure Click_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Click.Click_Event'Class) is null;
+
 --   not overriding procedure Mouse_Move_Event
 --    (Self  : in out Abstract_Widget;
 --     Event : in out WUI.Events.Mouse.Move.Mouse_Move_Event'Class) is null;
@@ -88,14 +88,14 @@ package Web.UI.Widgets is
 --   not overriding procedure Mouse_Wheel_Event
 --    (Self  : in out Abstract_Widget;
 --     Event : in out WUI.Events.Mouse.Wheel.Mouse_Wheel_Event'Class) is null;
---
---   package Constructors is
---
---      procedure Initialize
---       (Self    : in out Abstract_Widget'Class;
---        Element : not null WebAPI.HTML.Elements.HTML_Element_Access);
---
---   end Constructors;
+
+   package Constructors is
+
+      procedure Initialize
+       (Self    : aliased in out Abstract_Widget'Class;
+        Element : Web.HTML.Elements.HTML_Element'Class);
+
+   end Constructors;
 
 private
 
@@ -103,14 +103,14 @@ private
    -- Event Dispatchers --
    -----------------------
 
---   type Blur_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Blur_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
+   type Blur_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Blur_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
 --   type Change_Dispatcher
 --    (Owner : not null access Abstract_Widget'Class) is
 --       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
@@ -118,15 +118,15 @@ private
 --   overriding procedure Handle_Event
 --    (Self  : not null access Change_Dispatcher;
 --     Event : access WebAPI.DOM.Events.Event'Class);
---
---   type Focus_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Focus_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
+
+   type Focus_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Focus_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
 --   type Input_Dispatcher
 --    (Owner : not null access Abstract_Widget'Class) is
 --       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
@@ -134,15 +134,15 @@ private
 --   overriding procedure Handle_Event
 --    (Self  : not null access Input_Dispatcher;
 --     Event : access WebAPI.DOM.Events.Event'Class);
---
---   type Mouse_Click_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Click_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
+
+   type Mouse_Click_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Click_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
 --   type Mouse_Move_Dispatcher
 --    (Owner : not null access Abstract_Widget'Class) is
 --       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
@@ -183,8 +183,8 @@ private
      abstract limited new Core.Connectables.Connectable_Object with
    record
       Element    : Web.HTML.Elements.HTML_Element;
---      Click      : aliased
---        Mouse_CLick_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Click      : aliased
+        Mouse_CLick_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Mouse_Move : aliased
 --        Mouse_Move_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Mouse_Down : aliased
@@ -195,14 +195,14 @@ private
 --      Change     : aliased
 --        Change_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Input      : aliased Input_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Blur       : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Focus      : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Blur       : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Focus      : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
    end record;
 
---   not overriding procedure Focus_In_Event (Self : in out Abstract_Widget);
---
---   not overriding procedure Focus_Out_Event (Self : in out Abstract_Widget);
---
+   not overriding procedure Focus_In_Event (Self : in out Abstract_Widget);
+
+   not overriding procedure Focus_Out_Event (Self : in out Abstract_Widget);
+
 --   not overriding procedure Input_Event
 --    (Self : in out Abstract_Widget) is null;
 --

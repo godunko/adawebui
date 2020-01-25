@@ -41,40 +41,41 @@
 ------------------------------------------------------------------------------
 --  $Revision: 5872 $ $Date: 2018-09-22 11:56:07 +0200 (Sat, 22 Sep 2018) $
 ------------------------------------------------------------------------------
---with WebAPI.DOM.Event_Targets;
---with WebAPI.UI_Events.Mouse;
+
+with Web.DOM.Event_Targets;
+with Web.UI_Events.Mouse_Events;
 --with WebAPI.UI_Events.Wheel;
---
---with WUI.Applications.Internals;
+
+with Web.UI.Applications.Internals;
 
 package body Web.UI.Widgets is
 
---   ------------------
---   -- Constructors --
---   ------------------
---
---   package body Constructors is
---
---      ----------------
---      -- Initialize --
---      ----------------
---
---      procedure Initialize
---       (Self    : in out Abstract_Widget'Class;
---        Element : not null WebAPI.HTML.Elements.HTML_Element_Access) is
---      begin
---         Self.Element := Element;
---
---         --  Connect event dispatchers.
---
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"blur", Self.Blur'Access, False);
+   ------------------
+   -- Constructors --
+   ------------------
+
+   package body Constructors is
+
+      ----------------
+      -- Initialize --
+      ----------------
+
+      procedure Initialize
+       (Self    : aliased in out Abstract_Widget'Class;
+        Element : Web.HTML.Elements.HTML_Element'Class) is
+      begin
+         Self.Element := Web.HTML.Elements.HTML_Element (Element);
+
+         --  Connect event dispatchers.
+
+         Self.Element.Add_Event_Listener
+          (+"blur", Self.Blur'Unchecked_Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"change", Self.Change'Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"click", Self.Click'Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"focus", Self.Focus'Access, False);
+         Self.Element.Add_Event_Listener
+          (+"click", Self.Click'Unchecked_Access, False);
+         Self.Element.Add_Event_Listener
+          (+"focus", Self.Focus'Unchecked_Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"input", Self.Input'Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
@@ -85,44 +86,39 @@ package body Web.UI.Widgets is
 --          (Element, +"mouseup", Self.Mouse_Up'Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"wheel", Self.Wheel'Access, False);
---      end Initialize;
---
---   end Constructors;
---
---   procedure Log (Item : League.Strings.Universal_String)
---     with Import     => True,
---          Convention => JavaScript_Function,
---          Link_Name  => "console.log";
---
---   --------------------
---   -- Focus_In_Event --
---   --------------------
---
---   not overriding procedure Focus_In_Event (Self : in out Abstract_Widget) is
---   begin
---      WUI.Applications.Internals.Focus_In (Self'Unchecked_Access);
---   end Focus_In_Event;
---
---   ---------------------
---   -- Focus_Out_Event --
---   ---------------------
---
---   not overriding procedure Focus_Out_Event (Self : in out Abstract_Widget) is
---   begin
---      WUI.Applications.Internals.Focus_Out (Self'Unchecked_Access);
---   end Focus_Out_Event;
---
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Blur_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class) is
---   begin
---      Self.Owner.Focus_Out_Event;
---   end Handle_Event;
---
+      end Initialize;
+
+   end Constructors;
+
+   --------------------
+   -- Focus_In_Event --
+   --------------------
+
+   not overriding procedure Focus_In_Event (Self : in out Abstract_Widget) is
+   begin
+      Web.UI.Applications.Internals.Focus_In (Self'Unchecked_Access);
+   end Focus_In_Event;
+
+   ---------------------
+   -- Focus_Out_Event --
+   ---------------------
+
+   not overriding procedure Focus_Out_Event (Self : in out Abstract_Widget) is
+   begin
+      Web.UI.Applications.Internals.Focus_Out (Self'Unchecked_Access);
+   end Focus_Out_Event;
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Blur_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class) is
+   begin
+      Self.Owner.Focus_Out_Event;
+   end Handle_Event;
+
 --   ------------------
 --   -- Handle_Event --
 --   ------------------
@@ -133,18 +129,18 @@ package body Web.UI.Widgets is
 --   begin
 --      Self.Owner.Change_Event;
 --   end Handle_Event;
---
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Focus_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class) is
---   begin
---      Self.Owner.Focus_In_Event;
---   end Handle_Event;
---
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Focus_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class) is
+   begin
+      Self.Owner.Focus_In_Event;
+   end Handle_Event;
+
 --   ------------------
 --   -- Handle_Event --
 --   ------------------
@@ -155,24 +151,24 @@ package body Web.UI.Widgets is
 --   begin
 --      Self.Owner.Input_Event;
 --   end Handle_Event;
---
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Click_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class)
---   is
---      E : WUI.Events.Mouse.Click.Click_Event;
---
---   begin
---      WUI.Events.Mouse.Click.Constructors.Initialize
---       (E,
---        WebAPI.UI_Events.Mouse.Mouse_Event'Class (Event.all)'Unchecked_Access);
---      Self.Owner.Click_Event (E);
---   end Handle_Event;
---
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Click_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Click.Click_Event;
+
+   begin
+      Web.UI.Events.Mouse.Click.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Click_Event (UI_Event);
+   end Handle_Event;
+
 --   ------------------
 --   -- Handle_Event --
 --   ------------------
