@@ -39,6 +39,7 @@
 ------------------------------------------------------------------------------
 
 with "../gnat-llvm/llvm-interface/adawebpack_src/gnat/adawebpack.gpr";
+with "../adagl/gnat/adagl_wasm.gpr";
 with "adawebui_config.gpr";
 
 project AdaWebUI is
@@ -59,7 +60,7 @@ project AdaWebUI is
 --   end case;
 
 --   for Source_Dirs use Source_Dirs;
-   for Source_Dirs use ("../source", "../source/core");
+   for Source_Dirs use ("../source", "../source/core", "../source/gl");
    for Object_Dir use AdaWebUI_Config.Object_Dir;
 
    package Compiler renames AdaWebUI_Config.Compiler;
