@@ -62,7 +62,7 @@ project AdaWebUI is
    for Source_Dirs use ("../source", "../source/core");
    for Object_Dir use AdaWebUI_Config.Object_Dir;
 
---   package Compiler renames AdaGL_Config.Compiler;
+   package Compiler renames AdaWebUI_Config.Compiler;
 
 --   package Naming is
 --      case AdaGL_Config.Target_Name is
