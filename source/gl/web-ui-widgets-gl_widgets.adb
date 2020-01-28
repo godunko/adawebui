@@ -134,11 +134,6 @@ package body Web.UI.Widgets.GL_Widgets is
       --  Frame request has been completed.
 
       Instance.Animation_Frame;
-
-      Frame_Request_Id :=
-        Web.Window.Request_Animation_Frame
-         (Animation_Frame_Request_Handler'Access);
-      --  Request next animation frame.
    end Animation_Frame_Request_Handler;
 
    ------------------
@@ -170,15 +165,7 @@ package body Web.UI.Widgets.GL_Widgets is
 
          Instance := Self'Unchecked_Access;
 
-         if Frame_Request_Id = 0 then
-            --  Register request of animation frame, if not registered.
-            --  Initialization of the GL related features will be continued
-            --  durin handling of the requested animation frame.
-
-            Frame_Request_Id :=
-              Web.Window.Request_Animation_Frame
-               (Animation_Frame_Request_Handler'Access);
-         end if;
+         Self.Update;
       end Initialize;
 
    end Constructors;
@@ -225,6 +212,16 @@ package body Web.UI.Widgets.GL_Widgets is
       --  Request redraw on processing of next animation frame.
 
       Self.Redraw_Needed := True;
+
+      if Frame_Request_Id = 0 then
+         --  Register request of animation frame, if not registered.
+         --  Initialization of the GL related features will be continued
+         --  durin handling of the requested animation frame.
+
+         Frame_Request_Id :=
+           Web.Window.Request_Animation_Frame
+            (Animation_Frame_Request_Handler'Access);
+      end if;
    end Update;
 
 end Web.UI.Widgets.GL_Widgets;
