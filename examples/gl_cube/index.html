@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<!--
+<script type="module">
+-->
+<html>
+<script id="cube-vertex-shader" type="not-javascript">
+  uniform mat4 uModelMoveMatrix;
+  uniform mat4 uModelViewMatrix;
+  uniform mat4 uProjectionMatrix;
+  attribute vec4 aVertexPosition;
+  attribute vec3 aVertexColor;
+  varying vec3 vColor;
+
+  void main() {
+    gl_Position = uProjectionMatrix * uModelViewMatrix * uModelMoveMatrix * aVertexPosition;
+    vColor = aVertexColor;
+  }
+</script>
+<script id="cube-fragment-shader" type="not-javascript">
+  precision mediump float;
+  varying vec3 vColor;
+
+  void main() {
+    gl_FragColor = vec4(vColor, 1.0);
+  }
+</script>
+
+<script src='adawebpack.js'></script>
+<script>
+  var instance;
+
+  var local_functions = {
+  };
+  var imports = {
+    env: Object.assign({}, local_functions, adawebpack)
+  };
+  fetch("cube.wasm")
+    .then(response => response.arrayBuffer())
+    .then(bytes => WebAssembly.instantiate(bytes, imports))
+    .then(obj => {
+      instance = obj.instance;
+      obj.instance.exports.adainit();
+    })
+</script>
+<!--
+  var module;
+  module = fetch(".objs/main")
+    .then(response => response.arrayBuffer())
+    .then(bytes => WebAssembly.instantiate(bytes))
+    .then(obj => { const m = obj; return obj; })
+  console.log(module);
+  console.log(m);
+<script type="module">
+  async function init() {
+    const { instance } = await WebAssembly.instantiateStreaming(
+      fetch("./add.wasm")
+    );
+    console.log(instance.exports.add(4, 1));
+    .then(obj => console.log(obj.instance.exports.add(4, 1)))
+  }
+  init();
+</script>
+-->
+<body>
+  <canvas style='width: 100%; hieght: 100%;' id='cube_gl_canvas'></canvas>
+</body>
+</html>

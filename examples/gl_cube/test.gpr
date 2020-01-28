@@ -1,0 +1,41 @@
+with "../gnat-llvm/llvm-interface/adawebpack_src/gnat/adawebpack.gpr";
+with "../adagl/gnat/adagl_wasm.gpr";
+with "../adawebui/gnat/adawebui.gpr";
+
+project Test is
+--   for Library_Name use "my";
+--   for Library_Dir use ".libs";
+--   for Library_Kind use "relocatable";
+
+   for Target use "llvm";
+--   for Runtime ("Ada") use "zfp";
+   for Object_Dir use ".objs";
+   for Source_Dirs use (".");
+   for Exec_Dir use ".";
+   for Main use ("main.adb", "cube.adb");
+
+   package Compiler is
+--      for Switches ("Ada") use ("-emit-llvm", "--target=wasm32");
+--      for Switches ("Ada") use ("--target=wasm32", "-filetype=obj");
+      for Switches ("Ada") use ("--target=wasm32", "-O1");
+--      for Switches ("Ada") use ("--target=wasm32", "-gnateT=../target.atp");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-z");
+   end Binder;
+
+   package Linker is
+      for Switches ("Ada") use ("--target=wasm32", "-nostdlib", "-Wl,--export-all", "-Wl,--allow-undefined", "-Wl,--no-entry");
+--      for Switches ("Ada") use ("--target=wasm32", "-nostdlib", "-Wl,--export-all", "-Wl,--allow-undefined", "-Wl,--no-entry", "-Wl,--initial-memory=1048576");
+--      for Switches ("Ada") use ("--target=wasm32", "-nostdlib", "-Wl,--export-all", "-Wl,--allow-undefined", "-Wl,--entry=adainit");
+--      for Switches ("Ada") use ("--target=wasm32", "-nostdlib", "-Wl,--export-all", "-Wl,--unresolved-symbols=ignore-all");
+--      for Switches ("Ada") use ("--target=wasm32", "-nostdlib", "-Wl,--no-entry", "-Wl,--export-all");
+   end Linker;
+
+   package Builder is
+      for Executable ("main.adb") use "main.wasm";
+      for Executable ("cube.adb") use "cube.wasm";
+   end Builder;
+
+end Test;
