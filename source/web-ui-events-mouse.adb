@@ -58,7 +58,7 @@ package body Web.UI.Events.Mouse is
       ----------------
 
       procedure Initialize
-       (Self  : in out Abstract_Mouse_Event'Class;
+       (Self  : in out Mouse_Event'Class;
         Event : in out Web.UI_Events.Mouse_Events.Mouse_Event'Class) is
       begin
          Web.UI.Events.Constructors.Initialize (Self, Event);

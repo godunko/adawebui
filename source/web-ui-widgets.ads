@@ -48,9 +48,7 @@ with Web.HTML.Elements;
 with Web.Core.Connectables;
 private with Web.Core.Connectables.Slots_0.Slots_1.Generic_Slots;
 with Web.UI.Boolean_Slots;
---with WUI.Events.Mouse.Button;
-with Web.UI.Events.Mouse.Click;
---with WUI.Events.Mouse.Move;
+with Web.UI.Events.Mouse;
 --with WUI.Events.Mouse.Wheel;
 
 package Web.UI.Widgets is
@@ -69,22 +67,22 @@ package Web.UI.Widgets is
     (Self : in out Abstract_Widget'Class)
        return Web.UI.Boolean_Slots.Slot'Class;
 
-   not overriding procedure Click_Event
+   not overriding procedure Mouse_Click_Event
     (Self  : in out Abstract_Widget;
-     Event : in out Web.UI.Events.Mouse.Click.Click_Event'Class) is null;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
 
 --   not overriding procedure Mouse_Move_Event
 --    (Self  : in out Abstract_Widget;
---     Event : in out WUI.Events.Mouse.Move.Mouse_Move_Event'Class) is null;
+--     Event : in out Web.UI.Events.Mouse.Move.Mouse_Move_Event'Class) is null;
 --
 --   not overriding procedure Mouse_Press_Event
 --    (Self  : in out Abstract_Widget;
---     Event : in out WUI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
+--     Event : in out Web.UI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
 --
 --   not overriding procedure Mouse_Release_Event
 --    (Self  : in out Abstract_Widget;
---     Event : in out WUI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
---
+--     Event : in out Web.UI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
+
 --   not overriding procedure Mouse_Wheel_Event
 --    (Self  : in out Abstract_Widget;
 --     Event : in out WUI.Events.Mouse.Wheel.Mouse_Wheel_Event'Class) is null;

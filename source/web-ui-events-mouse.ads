@@ -55,8 +55,7 @@ package Web.UI.Events.Mouse is
 
 --   type Mouse_Buttons is array (Mouse_Button) of Boolean;
 
-   type Abstract_Mouse_Event is
-     abstract new Web.UI.Events.Abstract_Event with private;
+   type Mouse_Event is new Web.UI.Events.Abstract_Event with private;
 
 --   function Buttons
 --    (Self : Abstract_Mouse_Event'Class) return Mouse_Buttons;
@@ -68,14 +67,14 @@ package Web.UI.Events.Mouse is
    package Constructors is
 
       procedure Initialize
-       (Self  : in out Abstract_Mouse_Event'Class;
+       (Self  : in out Mouse_Event'Class;
         Event : in out Web.UI_Events.Mouse_Events.Mouse_Event'Class);
 
    end Constructors;
 
 private
 
-   type Abstract_Mouse_Event is
-     abstract new Web.UI.Events.Abstract_Event with null record;
+   type Mouse_Event is
+     new Web.UI.Events.Abstract_Event with null record;
 
 end Web.UI.Events.Mouse;

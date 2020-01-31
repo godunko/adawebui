@@ -162,11 +162,11 @@ package body Web.UI.Widgets is
    is
       DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
         := Event.As_Mouse_Event;
-      UI_Event  : Web.UI.Events.Mouse.Click.Click_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
 
    begin
-      Web.UI.Events.Mouse.Click.Constructors.Initialize (UI_Event, DOM_Event);
-      Self.Owner.Click_Event (UI_Event);
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Click_Event (UI_Event);
    end Handle_Event;
 
 --   ------------------
