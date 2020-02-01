@@ -60,9 +60,9 @@ package Web.UI.Events.Mouse is
 --   function Buttons
 --    (Self : Abstract_Mouse_Event'Class) return Mouse_Buttons;
 
---   function X (Self : Abstract_Mouse_Event'Class) return Long_Float;
---
---   function Y (Self : Abstract_Mouse_Event'Class) return Long_Float;
+   function X (Self : Mouse_Event'Class) return Long_Float;
+
+   function Y (Self : Mouse_Event'Class) return Long_Float;
 
    package Constructors is
 

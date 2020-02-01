@@ -96,34 +96,22 @@ package body Web.UI.Events.Mouse is
 --      return Result;
 --   end Buttons;
 
---   -------
---   -- X --
---   -------
---
---   function X (Self : Abstract_Mouse_Event'Class) return Long_Float is
---      E : WebAPI.UI_Events.Mouse.Mouse_Event'Class
---        renames WebAPI.UI_Events.Mouse.Mouse_Event'Class (Self.Event.all);
---      R : constant WebAPI.DOM.Rects.DOM_Rect_Access
---        := WebAPI.DOM.Elements.Element'Class
---            (E.Get_Target.all).Get_Bounding_Client_Rect;
---
---   begin
---      return Long_Float (E.Get_Client_X) - Long_Float (R.Get_Left);
---   end X;
---
---   -------
---   -- Y --
---   -------
---
---   function Y (Self : Abstract_Mouse_Event'Class) return Long_Float is
---      E : WebAPI.UI_Events.Mouse.Mouse_Event'Class
---        renames WebAPI.UI_Events.Mouse.Mouse_Event'Class (Self.Event.all);
---      R : constant WebAPI.DOM.Rects.DOM_Rect_Access
---        := WebAPI.DOM.Elements.Element'Class
---            (E.Get_Target.all).Get_Bounding_Client_Rect;
---
---   begin
---      return Long_Float (E.Get_Client_Y) - Long_Float (R.Get_Top);
---   end Y;
+   -------
+   -- X --
+   -------
+
+   function X (Self : Mouse_Event'Class) return Long_Float is
+   begin
+      return Long_Float (Self.Event.As_Mouse_Event.Offset_X);
+   end X;
+
+   -------
+   -- Y --
+   -------
+
+   function Y (Self : Mouse_Event'Class) return Long_Float is
+   begin
+      return Long_Float (Self.Event.As_Mouse_Event.Offset_Y);
+   end Y;
 
 end Web.UI.Events.Mouse;
