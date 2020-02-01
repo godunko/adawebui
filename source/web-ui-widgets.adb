@@ -78,12 +78,12 @@ package body Web.UI.Widgets is
           (+"focus", Self.Focus'Unchecked_Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"input", Self.Input'Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"mousemove", Self.Mouse_Move'Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"mousedown", Self.Mouse_Down'Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"mouseup", Self.Mouse_Up'Access, False);
+         Self.Element.Add_Event_Listener
+          (+"mousemove", Self.Mouse_Move'Unchecked_Access, False);
+         Self.Element.Add_Event_Listener
+          (+"mousedown", Self.Mouse_Down'Unchecked_Access, False);
+         Self.Element.Add_Event_Listener
+          (+"mouseup", Self.Mouse_Up'Unchecked_Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"wheel", Self.Wheel'Access, False);
       end Initialize;
@@ -169,57 +169,57 @@ package body Web.UI.Widgets is
       Self.Owner.Mouse_Click_Event (UI_Event);
    end Handle_Event;
 
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Move_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class)
---   is
---      E : WUI.Events.Mouse.Move.Mouse_Move_Event;
---
---   begin
---      WUI.Events.Mouse.Move.Constructors.Initialize
---       (E,
---        WebAPI.UI_Events.Mouse.Mouse_Event'Class (Event.all)'Unchecked_Access);
---      Self.Owner.Mouse_Move_Event (E);
---   end Handle_Event;
---
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Down_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class)
---   is
---      E : WUI.Events.Mouse.Button.Mouse_Button_Event;
---
---   begin
---      WUI.Events.Mouse.Button.Constructors.Initialize
---       (E,
---        WebAPI.UI_Events.Mouse.Mouse_Event'Class (Event.all)'Unchecked_Access);
---      Self.Owner.Mouse_Press_Event (E);
---   end Handle_Event;
---
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Up_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class)
---   is
---      E : WUI.Events.Mouse.Button.Mouse_Button_Event;
---
---   begin
---      WUI.Events.Mouse.Button.Constructors.Initialize
---       (E,
---        WebAPI.UI_Events.Mouse.Mouse_Event'Class (Event.all)'Unchecked_Access);
---      Self.Owner.Mouse_Release_Event (E);
---   end Handle_Event;
---
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Move_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
+
+   begin
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Move_Event (UI_Event);
+   end Handle_Event;
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Down_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
+
+   begin
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Press_Event (UI_Event);
+   end Handle_Event;
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Up_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
+
+   begin
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Release_Event (UI_Event);
+   end Handle_Event;
+
 --   ------------------
 --   -- Handle_Event --
 --   ------------------

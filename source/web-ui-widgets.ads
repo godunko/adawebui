@@ -71,17 +71,17 @@ package Web.UI.Widgets is
     (Self  : in out Abstract_Widget;
      Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
 
---   not overriding procedure Mouse_Move_Event
---    (Self  : in out Abstract_Widget;
---     Event : in out Web.UI.Events.Mouse.Move.Mouse_Move_Event'Class) is null;
---
---   not overriding procedure Mouse_Press_Event
---    (Self  : in out Abstract_Widget;
---     Event : in out Web.UI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
---
---   not overriding procedure Mouse_Release_Event
---    (Self  : in out Abstract_Widget;
---     Event : in out Web.UI.Events.Mouse.Button.Mouse_Button_Event'Class) is null;
+   not overriding procedure Mouse_Move_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
+
+   not overriding procedure Mouse_Press_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
+
+   not overriding procedure Mouse_Release_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
 
 --   not overriding procedure Mouse_Wheel_Event
 --    (Self  : in out Abstract_Widget;
@@ -141,30 +141,30 @@ private
     (Self  : in out Mouse_Click_Dispatcher;
      Event : in out Web.DOM.Events.Event'Class);
 
---   type Mouse_Move_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Move_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
---   type Mouse_Down_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Down_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
---   type Mouse_Up_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Mouse_Up_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
---
+   type Mouse_Move_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Move_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
+   type Mouse_Down_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Down_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
+   type Mouse_Up_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Up_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
 --   type Wheel_Dispatcher
 --    (Owner : not null access Abstract_Widget'Class) is
 --       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
@@ -183,12 +183,12 @@ private
       Element    : Web.HTML.Elements.HTML_Element;
       Click      : aliased
         Mouse_CLick_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Mouse_Move : aliased
---        Mouse_Move_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Mouse_Down : aliased
---        Mouse_Down_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Mouse_Up   : aliased
---        Mouse_Up_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Mouse_Move : aliased
+        Mouse_Move_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Mouse_Down : aliased
+        Mouse_Down_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Mouse_Up   : aliased
+        Mouse_Up_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Wheel      : aliased Wheel_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Change     : aliased
 --        Change_Dispatcher (Abstract_Widget'Unchecked_Access);
