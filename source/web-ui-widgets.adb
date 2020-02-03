@@ -84,6 +84,10 @@ package body Web.UI.Widgets is
           (+"mousedown", Self.Mouse_Down'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
           (+"mouseup", Self.Mouse_Up'Unchecked_Access, False);
+         Self.Element.Add_Event_Listener
+          (+"mouseenter", Self.Mouse_Enter'Unchecked_Access, False);
+         Self.Element.Add_Event_Listener
+          (+"mouseleave", Self.Mouse_Leave'Unchecked_Access, False);
 --         WebAPI.DOM.Event_Targets.Add_Event_Listener
 --          (Element, +"wheel", Self.Wheel'Access, False);
       end Initialize;
@@ -218,6 +222,40 @@ package body Web.UI.Widgets is
    begin
       Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
       Self.Owner.Mouse_Release_Event (UI_Event);
+   end Handle_Event;
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Enter_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
+
+   begin
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Enter_Event (UI_Event);
+   end Handle_Event;
+
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Leave_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class)
+   is
+      DOM_Event : Web.UI_Events.Mouse_Events.Mouse_Event
+        := Event.As_Mouse_Event;
+      UI_Event  : Web.UI.Events.Mouse.Mouse_Event;
+
+   begin
+      Web.UI.Events.Mouse.Constructors.Initialize (UI_Event, DOM_Event);
+      Self.Owner.Mouse_Leave_Event (UI_Event);
    end Handle_Event;
 
 --   ------------------

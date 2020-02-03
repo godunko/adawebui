@@ -71,6 +71,14 @@ package Web.UI.Widgets is
     (Self  : in out Abstract_Widget;
      Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
 
+   not overriding procedure Mouse_Enter_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
+
+   not overriding procedure Mouse_Leave_Event
+    (Self  : in out Abstract_Widget;
+     Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
+
    not overriding procedure Mouse_Move_Event
     (Self  : in out Abstract_Widget;
      Event : in out Web.UI.Events.Mouse.Mouse_Event'Class) is null;
@@ -165,6 +173,22 @@ private
     (Self  : in out Mouse_Up_Dispatcher;
      Event : in out Web.DOM.Events.Event'Class);
 
+   type Mouse_Enter_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Enter_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
+   type Mouse_Leave_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Mouse_Leave_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
+
 --   type Wheel_Dispatcher
 --    (Owner : not null access Abstract_Widget'Class) is
 --       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
@@ -180,21 +204,25 @@ private
    type Abstract_Widget is
      abstract limited new Core.Connectables.Connectable_Object with
    record
-      Element    : Web.HTML.Elements.HTML_Element;
-      Click      : aliased
+      Element     : Web.HTML.Elements.HTML_Element;
+      Click       : aliased
         Mouse_CLick_Dispatcher (Abstract_Widget'Unchecked_Access);
-      Mouse_Move : aliased
+      Mouse_Move  : aliased
         Mouse_Move_Dispatcher (Abstract_Widget'Unchecked_Access);
-      Mouse_Down : aliased
+      Mouse_Down  : aliased
         Mouse_Down_Dispatcher (Abstract_Widget'Unchecked_Access);
-      Mouse_Up   : aliased
+      Mouse_Up    : aliased
         Mouse_Up_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Mouse_Enter : aliased
+        Mouse_Enter_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Mouse_Leave : aliased
+        Mouse_Leave_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Wheel      : aliased Wheel_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Change     : aliased
 --        Change_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Input      : aliased Input_Dispatcher (Abstract_Widget'Unchecked_Access);
-      Blur       : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
-      Focus      : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Blur        : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Focus       : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
    end record;
 
    not overriding procedure Focus_In_Event (Self : in out Abstract_Widget);
