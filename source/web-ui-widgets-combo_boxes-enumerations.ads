@@ -109,8 +109,9 @@ private
 
    type Combo_Box is
      abstract new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with record
-      Current_Index_Changed : aliased
-        Data_Slots_Emitters.Emitter (Combo_Box'Unchecked_Access);
+null;
+--      Current_Index_Changed : aliased
+--        Data_Slots_Emitters.Emitter (Combo_Box'Unchecked_Access);
    end record;
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);

@@ -42,8 +42,6 @@
 --  $Revision: 5761 $ $Date: 2017-05-20 11:06:31 +0300 (Sat, 20 May 2017) $
 ------------------------------------------------------------------------------
 
---with WebAPI.HTML.Globals;
-
 package body Web.UI.Widgets.Combo_Boxes is
 
    ------------------
@@ -100,6 +98,16 @@ package body Web.UI.Widgets.Combo_Boxes is
 
    end Constructors;
 
+   ------------------
+   -- Change_Event --
+   ------------------
+
+   overriding procedure Change_Event (Self : in out Abstract_Combo_Box) is
+   begin
+      Self.Current_Index_Changed.Emit
+       (Integer (Self.Element.As_HTML_Select.Get_Selected_Index + 1));
+   end Change_Event;
+
 --   -------------------
 --   -- Current_Index --
 --   -------------------
@@ -115,18 +123,18 @@ package body Web.UI.Widgets.Combo_Boxes is
 --   begin
 --      return Input.Get_Value;
 --   end Current_Index;
---
---   ----------------------------------
---   -- Current_Index_Changed_Signal --
---   ----------------------------------
---
---   not overriding function Current_Index_Changed_Signal
---    (Self : in out Combo_Box)
---       return not null access WUI.String_Slots.Signal'Class is
---   begin
---      return Self.Current_Index_Changed'Unchecked_Access;
---   end Current_Index_Changed_Signal;
---
+
+   ----------------------------------
+   -- Current_Index_Changed_Signal --
+   ----------------------------------
+
+   not overriding function Current_Index_Changed_Signal
+    (Self : in out Abstract_Combo_Box)
+       return not null access Web.UI.Integer_Slots.Signal'Class is
+   begin
+      return Self.Current_Index_Changed'Unchecked_Access;
+   end Current_Index_Changed_Signal;
+
 --   -----------------
 --   -- Input_Event --
 --   -----------------

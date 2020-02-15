@@ -49,6 +49,7 @@ with Web.HTML.Selects;
 ----private with Core.Slots_0.Generic_Slots;
 ----private with Core.Slots_0.Emitters;
 --with WUI.String_Slots;
+private with Web.UI.Integer_Slots.Emitters;
 --private with WUI.String_Slots.Emitters;
 
 package Web.UI.Widgets.Combo_Boxes is
@@ -92,13 +93,13 @@ package Web.UI.Widgets.Combo_Boxes is
     (Self : in out Abstract_Combo_Box'Class)
        return Web.UI.Boolean_Slots.Slot'Class;
 
---   -------------
---   -- Signals --
---   -------------
---
---   not overriding function Current_Index_Changed_Signal
---    (Self : in out Combo_Box)
---       return not null access WUI.String_Slots.Signal'Class;
+   -------------
+   -- Signals --
+   -------------
+
+   not overriding function Current_Index_Changed_Signal
+    (Self : in out Abstract_Combo_Box)
+       return not null access Web.UI.Integer_Slots.Signal'Class;
 
    package Constructors is
 
@@ -120,10 +121,12 @@ package Web.UI.Widgets.Combo_Boxes is
 private
 
    type Abstract_Combo_Box is new Web.UI.Widgets.Abstract_Widget with record
-null;
---      Current_Index_Changed : aliased
---        WUI.String_Slots.Emitters.Emitter (Combo_Box'Unchecked_Access);
+      Current_Index_Changed : aliased
+        Web.UI.Integer_Slots.Emitters.Emitter
+         (Abstract_Combo_Box'Unchecked_Access);
    end record;
+
+   overriding procedure Change_Event (Self : in out Abstract_Combo_Box);
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);
 

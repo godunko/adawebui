@@ -101,9 +101,10 @@ private
 
    type String_Combo_Box is
      new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with record
-      Current_Index_Changed : aliased
-        Web.UI.String_Slots.Emitters.Emitter
-         (String_Combo_Box'Unchecked_Access);
+null;
+--      Current_Index_Changed : aliased
+--        Web.UI.String_Slots.Emitters.Emitter
+--         (String_Combo_Box'Unchecked_Access);
    end record;
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);
