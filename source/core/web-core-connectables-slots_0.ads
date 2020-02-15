@@ -46,7 +46,9 @@ package Web.Core.Connectables.Slots_0 is
 
    pragma Preelaborate;
 
-   type Slot (<>) is abstract tagged limited private;
+--   type Slot (<>) is abstract tagged limited private;
+--  XXX GNATLLVM: instantiation erorr of Slot_1.
+   type Slot is abstract tagged limited private;
 
    type Signal is limited interface;
 
