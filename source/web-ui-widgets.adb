@@ -70,8 +70,8 @@ package body Web.UI.Widgets is
 
          Self.Element.Add_Event_Listener
           (+"blur", Self.Blur'Unchecked_Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"change", Self.Change'Access, False);
+         Self.Element.Add_Event_Listener
+          (+"change", Self.Change'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
           (+"click", Self.Click'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
@@ -123,16 +123,16 @@ package body Web.UI.Widgets is
       Self.Owner.Focus_Out_Event;
    end Handle_Event;
 
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Change_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class) is
---   begin
---      Self.Owner.Change_Event;
---   end Handle_Event;
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Change_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class) is
+   begin
+      Self.Owner.Change_Event;
+   end Handle_Event;
 
    ------------------
    -- Handle_Event --

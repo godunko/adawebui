@@ -117,13 +117,13 @@ private
     (Self  : in out Blur_Dispatcher;
      Event : in out Web.DOM.Events.Event'Class);
 
---   type Change_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Change_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
+   type Change_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Change_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
 
    type Focus_Dispatcher
     (Owner : not null access Abstract_Widget'Class) is
@@ -218,8 +218,8 @@ private
       Mouse_Leave : aliased
         Mouse_Leave_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Wheel      : aliased Wheel_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Change     : aliased
---        Change_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Change      : aliased
+        Change_Dispatcher (Abstract_Widget'Unchecked_Access);
 --      Input      : aliased Input_Dispatcher (Abstract_Widget'Unchecked_Access);
       Blur        : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
       Focus       : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
@@ -231,9 +231,9 @@ private
 
 --   not overriding procedure Input_Event
 --    (Self : in out Abstract_Widget) is null;
---
---   not overriding procedure Change_Event
---    (Self : in out Abstract_Widget) is null;
+
+   not overriding procedure Change_Event
+    (Self : in out Abstract_Widget) is null;
 
    package Set_Visible_Slots is
      new Web.UI.Boolean_Slots.Generic_Slots (Abstract_Widget, Set_Visible);
