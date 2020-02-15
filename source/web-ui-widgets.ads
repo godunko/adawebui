@@ -133,13 +133,13 @@ private
     (Self  : in out Focus_Dispatcher;
      Event : in out Web.DOM.Events.Event'Class);
 
---   type Input_Dispatcher
---    (Owner : not null access Abstract_Widget'Class) is
---       limited new WebAPI.DOM.Event_Listeners.Event_Listener with null record;
---
---   overriding procedure Handle_Event
---    (Self  : not null access Input_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class);
+   type Input_Dispatcher
+    (Owner : not null access Abstract_Widget'Class) is
+       limited new Web.DOM.Event_Listeners.Event_Listener with null record;
+
+   overriding procedure Handle_Event
+    (Self  : in out Input_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class);
 
    type Mouse_Click_Dispatcher
     (Owner : not null access Abstract_Widget'Class) is
@@ -220,7 +220,8 @@ private
 --      Wheel      : aliased Wheel_Dispatcher (Abstract_Widget'Unchecked_Access);
       Change      : aliased
         Change_Dispatcher (Abstract_Widget'Unchecked_Access);
---      Input      : aliased Input_Dispatcher (Abstract_Widget'Unchecked_Access);
+      Input       : aliased
+        Input_Dispatcher (Abstract_Widget'Unchecked_Access);
       Blur        : aliased Blur_Dispatcher (Abstract_Widget'Unchecked_Access);
       Focus       : aliased Focus_Dispatcher (Abstract_Widget'Unchecked_Access);
    end record;
@@ -229,8 +230,8 @@ private
 
    not overriding procedure Focus_Out_Event (Self : in out Abstract_Widget);
 
---   not overriding procedure Input_Event
---    (Self : in out Abstract_Widget) is null;
+   not overriding procedure Input_Event
+    (Self : in out Abstract_Widget) is null;
 
    not overriding procedure Change_Event
     (Self : in out Abstract_Widget) is null;

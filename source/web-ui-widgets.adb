@@ -76,8 +76,8 @@ package body Web.UI.Widgets is
           (+"click", Self.Click'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
           (+"focus", Self.Focus'Unchecked_Access, False);
---         WebAPI.DOM.Event_Targets.Add_Event_Listener
---          (Element, +"input", Self.Input'Access, False);
+         Self.Element.Add_Event_Listener
+          (+"input", Self.Input'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
           (+"mousemove", Self.Mouse_Move'Unchecked_Access, False);
          Self.Element.Add_Event_Listener
@@ -145,16 +145,16 @@ package body Web.UI.Widgets is
       Self.Owner.Focus_In_Event;
    end Handle_Event;
 
---   ------------------
---   -- Handle_Event --
---   ------------------
---
---   overriding procedure Handle_Event
---    (Self  : not null access Input_Dispatcher;
---     Event : access WebAPI.DOM.Events.Event'Class) is
---   begin
---      Self.Owner.Input_Event;
---   end Handle_Event;
+   ------------------
+   -- Handle_Event --
+   ------------------
+
+   overriding procedure Handle_Event
+    (Self  : in out Input_Dispatcher;
+     Event : in out Web.DOM.Events.Event'Class) is
+   begin
+      Self.Owner.Input_Event;
+   end Handle_Event;
 
    ------------------
    -- Handle_Event --
