@@ -42,9 +42,9 @@
 --  $Revision: 5761 $ $Date: 2017-05-20 11:06:31 +0300 (Sat, 20 May 2017) $
 ------------------------------------------------------------------------------
 
-with Web.UI.Widgets.Combo_Boxes.Enumerations;
+with Web.UI.Widgets.Combo_Boxes.Generic_Enumerations;
 
 generic
 package Web.UI.Generic_Enumeration_Combo_Boxes
-  renames Web.UI.Widgets.Combo_Boxes.Enumerations;
+  renames Web.UI.Widgets.Combo_Boxes.Generic_Enumerations;
 pragma Preelaborate (Web.UI.Generic_Enumeration_Combo_Boxes);

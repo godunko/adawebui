@@ -42,9 +42,9 @@
 --  $Revision: 5761 $ $Date: 2017-05-20 11:06:31 +0300 (Sat, 20 May 2017) $
 ------------------------------------------------------------------------------
 
---with WebAPI.HTML.Globals;
+with Web.Window;
 
-package body Web.UI.Widgets.Combo_Boxes.Enumerations is
+package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
 
    ------------------
    -- Constructors --
@@ -52,40 +52,35 @@ package body Web.UI.Widgets.Combo_Boxes.Enumerations is
 
    package body Constructors is
 
---      type Combo_Box_Internal_Access is access all Abstract_Combo_Box'Class;
+      ------------
+      -- Create --
+      ------------
 
---      ------------
---      -- Create --
---      ------------
---
---      function Create
---       (Element :
---          not null WebAPI.HTML.Select_Elements.HTML_Select_Element_Access)
---            return not null Combo_Box_Access
---      is
---         Result : constant not null Combo_Box_Internal_Access
---           := new Combo_Box;
---
---      begin
---         Initialize (Result.all, Element);
---
---         return Combo_Box_Access (Result);
---      end Create;
---
---      ------------
---      -- Create --
---      ------------
---
---      function Create
---       (Id : League.Strings.Universal_String)
---          return not null Combo_Box_Access is
---      begin
---         return
---           Create
---            (WebAPI.HTML.Select_Elements.HTML_Select_Element_Access
---              (WebAPI.HTML.Globals.Window.Get_Document.Get_Element_By_Id
---                (Id)));
---      end Create;
+      function Create
+       (Element : Web.HTML.Selects.HTML_Select_Element'Class)
+          return not null Combo_Box_Access
+      is
+         Aux : constant not null Web.Core.Connectables.Object_Access
+           := new Combo_Box;
+
+      begin
+         return Result : constant not null Combo_Box_Access
+           := Combo_Box_Access (Aux)
+         do
+            Initialize (Result.all, Element);
+         end return;
+      end Create;
+
+      ------------
+      -- Create --
+      ------------
+
+      function Create
+       (Id : Web.Strings.Web_String) return not null Combo_Box_Access is
+      begin
+         return
+           Create (Web.Window.Document.Get_Element_By_Id (Id).As_HTML_Select);
+      end Create;
 
       ----------------
       -- Initialize --
@@ -100,16 +95,15 @@ package body Web.UI.Widgets.Combo_Boxes.Enumerations is
 
    end Constructors;
 
-   ------------------
-   -- Current_Data --
-   ------------------
+   -------------------
+   -- Current_Value --
+   -------------------
 
-   function Current_Data (Self : in out Combo_Box'Class) return Data_Type is
+   function Current_Value (Self : in out Combo_Box'Class) return Data_Type is
       Value : constant Web.Strings.Web_String
-        := Self.Element.As_HTML_Select.Get_Value;
---      Input : constant WebAPI.HTML.Select_Elements.HTML_Select_Element_Access
---        := WebAPI.HTML.Select_Elements.HTML_Select_Element_Access
---            (Self.Element);
+        := Combo_Box (Self).Element.As_HTML_Select.Get_Value;
+      --  XXX GNATLLVM: explicit type convention is necessary to workaround
+      --  crash of the compiler.
 
    begin
       if Value.Is_Empty then
@@ -118,8 +112,7 @@ package body Web.UI.Widgets.Combo_Boxes.Enumerations is
       else
          return Data_Type'Wide_Wide_Value (Value.To_Wide_Wide_String);
       end if;
---      return Input.Get_Value;
-   end Current_Data;
+   end Current_Value;
 
 --   ----------------------------------
 --   -- Current_Index_Changed_Signal --
@@ -167,4 +160,4 @@ package body Web.UI.Widgets.Combo_Boxes.Enumerations is
 --      end if;
 --   end Set_Current_Index;
 
-end Web.UI.Widgets.Combo_Boxes.Enumerations;
+end Web.UI.Widgets.Combo_Boxes.Generic_Enumerations;

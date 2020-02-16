@@ -44,9 +44,8 @@
 --  Generic ComboBox widget around enumeration type.
 ------------------------------------------------------------------------------
 
---with League.Strings;
-
 with Web.HTML.Selects;
+with Web.Strings;
 
 with Web.Core.Connectables.Slots_0.Slots_1.Generic_Emitters;
 with Web.Core.Slots_1;
@@ -63,17 +62,17 @@ generic
 
    with package Data_Slots_Emitters is new Data_Slots.Generic_Emitters;
 
-package Web.UI.Widgets.Combo_Boxes.Enumerations is
+package Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
 
    --  XXX Type of Index should be changed to Integer.
 
    type Combo_Box is
-     abstract new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with private;
+     new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with private;
 
-   type Combo_Box_Access is access all Abstract_Combo_Box'Class
+   type Combo_Box_Access is access all Combo_Box'Class
      with Storage_Size => 0;
 
-   function Current_Data (Self : in out Combo_Box'Class) return Data_Type;
+   function Current_Value (Self : in out Combo_Box'Class) return Data_Type;
 
 --   not overriding procedure Set_Current_Index
 --    (Self : in out Combo_Box;
@@ -90,25 +89,23 @@ package Web.UI.Widgets.Combo_Boxes.Enumerations is
 
    package Constructors is
 
+      function Create
+       (Element : Web.HTML.Selects.HTML_Select_Element'Class)
+          return not null Combo_Box_Access;
+
+      function Create
+       (Id : Web.Strings.Web_String) return not null Combo_Box_Access;
+
       procedure Initialize
        (Self    : in out Combo_Box'Class;
         Element : Web.HTML.Selects.HTML_Select_Element'Class);
-
---      function Create
---       (Element :
---          not null WebAPI.HTML.Select_Elements.HTML_Select_Element_Access)
---            return not null Combo_Box_Access;
---
---      function Create
---       (Id : League.Strings.Universal_String)
---          return not null Combo_Box_Access;
 
    end Constructors;
 
 private
 
    type Combo_Box is
-     abstract new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with record
+     new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with record
 null;
 --      Current_Index_Changed : aliased
 --        Data_Slots_Emitters.Emitter (Combo_Box'Unchecked_Access);
@@ -116,4 +113,4 @@ null;
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);
 
-end Web.UI.Widgets.Combo_Boxes.Enumerations;
+end Web.UI.Widgets.Combo_Boxes.Generic_Enumerations;
