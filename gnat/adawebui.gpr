@@ -60,7 +60,8 @@ project AdaWebUI is
 --   end case;
 
 --   for Source_Dirs use Source_Dirs;
-   for Source_Dirs use ("../source", "../source/core", "../source/gl");
+   for Source_Dirs
+     use ("../source", "../source/core", "../source/gl", "../source/flatten");
    for Object_Dir use AdaWebUI_Config.Object_Dir;
 
    package Compiler renames AdaWebUI_Config.Compiler;

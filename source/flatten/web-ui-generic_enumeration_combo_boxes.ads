@@ -45,6 +45,6 @@
 with Web.UI.Widgets.Combo_Boxes.Enumerations;
 
 generic
-package Web.UI.Enumeration_Combo_Boxes
+package Web.UI.Generic_Enumeration_Combo_Boxes
   renames Web.UI.Widgets.Combo_Boxes.Enumerations;
-pragma Preelaborate (Web.UI.Enumeration_Combo_Boxes);
+pragma Preelaborate (Web.UI.Generic_Enumeration_Combo_Boxes);
