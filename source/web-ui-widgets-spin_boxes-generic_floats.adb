@@ -153,6 +153,15 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    end Constructors;
 
    -----------
+   -- Value --
+   -----------
+
+   function Get_Value (Self : Float_Spin_Box'Class) return Data_Type is
+   begin
+      return Self.Last_Value;
+   end Get_Value;
+
+   -----------
    -- Image --
    -----------
 
@@ -241,15 +250,6 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
 --   begin
 --      raise Program_Error;
 --   end Step_Up;
---
---   -----------
---   -- Value --
---   -----------
---
---   not overriding function Value (Self : Float_Spin_Box) return Data_Type is
---   begin
---      return Self.Last_Value;
---   end Value;
 
    --------------------------
    -- Value_Changed_Signal --

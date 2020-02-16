@@ -62,8 +62,8 @@ package Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    type Float_Spin_Box_Access is access all Float_Spin_Box'Class
      with Storage_Size => 0;
 
---   not overriding function Value (Self : Float_Spin_Box) return Data_Type;
---
+   function Get_Value (Self : Float_Spin_Box'Class) return Data_Type;
+
 --   not overriding procedure Set_Value
 --    (Self : in out Float_Spin_Box;
 --     To   : Data_Type);
