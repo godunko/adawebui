@@ -38,8 +38,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with "../gnat-llvm/llvm-interface/adawebpack_src/gnat/adawebpack.gpr";
-with "../adagl/gnat/adagl_wasm.gpr";
+with "../../adawebpack/gnat/adawebpack.gpr";
+with "../../adagl/gnat/adagl_wasm.gpr";
 with "adawebui_config.gpr";
 
 project AdaWebUI is
