@@ -73,8 +73,8 @@ package Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    -- Signals --
    -------------
 
-   not overriding function Value_Changed_Signal
-    (Self : in out Float_Spin_Box)
+   function Value_Changed_Signal
+    (Self : in out Float_Spin_Box'Class)
        return not null access Float_Slots.Signal'Class;
 
 --   -----------
