@@ -95,11 +95,11 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
 
    end Constructors;
 
-   -------------------
-   -- Current_Value --
-   -------------------
+   -----------------------
+   -- Get_Current_Value --
+   -----------------------
 
-   function Current_Value (Self : in out Combo_Box'Class) return Data_Type is
+   function Get_Current_Value (Self : in out Combo_Box'Class) return Data_Type is
       Value : constant Web.Strings.Web_String
         := Combo_Box (Self).Element.As_HTML_Select.Get_Value;
       --  XXX GNATLLVM: explicit type convention is necessary to workaround
@@ -112,7 +112,7 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
       else
          return Data_Type'Wide_Wide_Value (Value.To_Wide_Wide_String);
       end if;
-   end Current_Value;
+   end Get_Current_Value;
 
 --   ----------------------------------
 --   -- Current_Index_Changed_Signal --

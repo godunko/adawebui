@@ -72,7 +72,7 @@ package Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
    type Combo_Box_Access is access all Combo_Box'Class
      with Storage_Size => 0;
 
-   function Current_Value (Self : in out Combo_Box'Class) return Data_Type;
+   function Get_Current_Value (Self : in out Combo_Box'Class) return Data_Type;
 
 --   not overriding procedure Set_Current_Index
 --    (Self : in out Combo_Box;
