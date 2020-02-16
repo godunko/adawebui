@@ -107,6 +107,16 @@ package body Web.UI.Widgets.Buttons.Boolean_Check_Boxes is
       Self.State_Changed.Emit (Self.Element.As_HTML_Input.Get_Checked);
    end Change_Event;
 
+   ---------------------
+   -- Get_Check_State --
+   ---------------------
+
+   function Get_Check_State
+    (Self : Boolean_Check_Box'Class) return Boolean is
+   begin
+      return Self.Element.As_HTML_Input.Get_Checked;
+   end Get_Check_State;
+
 --   -----------------
 --   -- Set_Enabled --
 --   -----------------

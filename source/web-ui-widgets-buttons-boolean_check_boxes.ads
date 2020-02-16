@@ -57,6 +57,9 @@ package Web.UI.Widgets.Buttons.Boolean_Check_Boxes is
    type Boolean_Check_Box_Access is access all Boolean_Check_Box'Class
      with Storage_Size => 0;
 
+   function Get_Check_State
+    (Self : Boolean_Check_Box'Class) return Boolean;
+
    function State_Changed_Signal
     (Self : in out Boolean_Check_Box'Class)
        return not null access Web.UI.Boolean_Slots.Signal'Class;
