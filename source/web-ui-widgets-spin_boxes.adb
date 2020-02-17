@@ -76,28 +76,31 @@ package body Web.UI.Widgets.Spin_Boxes is
 --   begin
 --      return Self.Editing_Finished'Unchecked_Access;
 --   end Editing_Finished_Signal;
---
---   ------------------
---   -- Set_Disabled --
---   ------------------
---
---   not overriding procedure Set_Disabled
---    (Self     : in out Abstract_Spin_Box;
---     Disabled : Boolean) is
---   begin
---      WebAPI.HTML.Input_Elements.HTML_Input_Element_Access
---       (Self.Element).Set_Disabled (Disabled);
---   end Set_Disabled;
---
---   -----------------
---   -- Set_Enabled --
---   -----------------
---
---   not overriding procedure Set_Enabled
---    (Self    : in out Abstract_Spin_Box;
---     Enabled : Boolean) is
---   begin
---      Self.Set_Disabled (not Enabled);
---   end Set_Enabled;
+
+   ------------------
+   -- Set_Disabled --
+   ------------------
+
+   not overriding procedure Set_Disabled
+    (Self     : in out Abstract_Spin_Box;
+     Disabled : Boolean := True)
+   is
+      Element : Web.HTML.Inputs.HTML_Input_Element
+        := Self.Element.As_HTML_Input;
+
+   begin
+      Element.Set_Disabled (Disabled);
+   end Set_Disabled;
+
+   -----------------
+   -- Set_Enabled --
+   -----------------
+
+   not overriding procedure Set_Enabled
+    (Self    : in out Abstract_Spin_Box;
+     Enabled : Boolean := True) is
+   begin
+      Self.Set_Disabled (not Enabled);
+   end Set_Enabled;
 
 end Web.UI.Widgets.Spin_Boxes;
