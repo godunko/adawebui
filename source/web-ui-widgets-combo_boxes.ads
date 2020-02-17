@@ -64,12 +64,12 @@ package Web.UI.Widgets.Combo_Boxes is
 
    not overriding procedure Set_Disabled
     (Self     : in out Abstract_Combo_Box;
-     Disabled : Boolean);
+     Disabled : Boolean := True);
    --  Available as slot.
 
    not overriding procedure Set_Enabled
     (Self    : in out Abstract_Combo_Box;
-     Enabled : Boolean);
+     Enabled : Boolean := True);
    --  Available as slot.
 
 --   function Current_Index

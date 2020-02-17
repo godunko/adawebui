@@ -176,7 +176,7 @@ package body Web.UI.Widgets.Combo_Boxes is
 
    not overriding procedure Set_Disabled
     (Self     : in out Abstract_Combo_Box;
-     Disabled : Boolean)
+     Disabled : Boolean := True)
    is
       Element : Web.HTML.Selects.HTML_Select_Element
         := Self.Element.As_HTML_Select;
@@ -191,7 +191,7 @@ package body Web.UI.Widgets.Combo_Boxes is
 
    not overriding procedure Set_Enabled
     (Self    : in out Abstract_Combo_Box;
-     Enabled : Boolean) is
+     Enabled : Boolean := True) is
    begin
       Self.Set_Disabled (not Enabled);
    end Set_Enabled;
