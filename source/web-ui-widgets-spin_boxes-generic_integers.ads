@@ -62,8 +62,8 @@ package Web.UI.Widgets.Spin_Boxes.Generic_Integers is
    type Integer_Spin_Box_Access is access all Integer_Spin_Box'Class
      with Storage_Size => 0;
 
---   not overriding function Value (Self : Integer_Spin_Box) return Data_Type;
---
+   function Get_Value (Self : Integer_Spin_Box'Class) return Data_Type;
+
 --   not overriding procedure Set_Value
 --    (Self : in out Integer_Spin_Box;
 --     To   : Data_Type);

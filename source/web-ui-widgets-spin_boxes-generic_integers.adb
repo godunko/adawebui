@@ -148,6 +148,15 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Integers is
 
    end Constructors;
 
+   ---------------
+   -- Get_Value --
+   ---------------
+
+   function Get_Value (Self : Integer_Spin_Box'Class) return Data_Type is
+   begin
+      return Self.Last_Value;
+   end Get_Value;
+
    -----------------
    -- Input_Event --
    -----------------
@@ -217,15 +226,6 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Integers is
 --   begin
 --      Self.Internal_Set_Value (To, False);
 --   end Set_Value;
---
---   -----------
---   -- Value --
---   -----------
---
---   not overriding function Value (Self : Integer_Spin_Box) return Data_Type is
---   begin
---      return Self.Last_Value;
---   end Value;
 
    --------------------------
    -- Value_Changed_Signal --
