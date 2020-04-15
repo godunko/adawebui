@@ -95,6 +95,30 @@ package body Web.UI.Widgets.Labels is
 
    end Constructors;
 
+   ------------------
+   -- Set_Disabled --
+   ------------------
+
+   overriding procedure Set_Disabled
+    (Self     : in out Label;
+     Disabled : Boolean := True) is
+   begin
+      raise Program_Error;
+      --  XXX Not implemented
+   end Set_Disabled;
+
+   -----------------
+   -- Set_Enabled --
+   -----------------
+
+   overriding procedure Set_Enabled
+    (Self    : in out Label;
+     Enabled : Boolean := True) is
+   begin
+      raise Program_Error;
+      --  XXX Not implemented
+   end Set_Enabled;
+
    --------------
    -- Set_Text --
    --------------

@@ -90,8 +90,12 @@ private
 
    overriding procedure Change_Event (Self : in out Boolean_Check_Box);
 
---   overriding procedure Set_Enabled
---    (Self    : in out Check_Box;
---     Enabled : Boolean);
+   overriding procedure Set_Disabled
+    (Self     : in out Boolean_Check_Box;
+     Disabled : Boolean := True);
+
+   overriding procedure Set_Enabled
+    (Self    : in out Boolean_Check_Box;
+     Enabled : Boolean := True);
 
 end Web.UI.Widgets.Buttons.Boolean_Check_Boxes;

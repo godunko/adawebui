@@ -117,17 +117,31 @@ package body Web.UI.Widgets.Buttons.Boolean_Check_Boxes is
       return Self.Element.As_HTML_Input.Get_Checked;
    end Get_Check_State;
 
---   -----------------
---   -- Set_Enabled --
---   -----------------
---
---   overriding procedure Set_Enabled
---    (Self    : in out Check_Box;
---     Enabled : Boolean) is
---   begin
---      WebAPI.HTML.Input_Elements.HTML_Input_Element_Access
---       (Self.Element).Set_Disabled (not Enabled);
---   end Set_Enabled;
+   ------------------
+   -- Set_Disabled --
+   ------------------
+
+   overriding procedure Set_Disabled
+    (Self     : in out Boolean_Check_Box;
+     Disabled : Boolean := True)
+   is
+      Element : Web.HTML.Inputs.HTML_Input_Element
+        := Self.Element.As_HTML_Input;
+
+   begin
+      Element.Set_Disabled (Disabled);
+   end Set_Disabled;
+
+   -----------------
+   -- Set_Enabled --
+   -----------------
+
+   overriding procedure Set_Enabled
+    (Self    : in out Boolean_Check_Box;
+     Enabled : Boolean := True) is
+   begin
+      Self.Set_Disabled (not Enabled);
+   end Set_Enabled;
 
    --------------------------
    -- State_Changed_Signal --

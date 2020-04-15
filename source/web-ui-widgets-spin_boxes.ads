@@ -57,12 +57,12 @@ package Web.UI.Widgets.Spin_Boxes is
 --    (Self : in out Abstract_Spin_Box)
 --       return not null access Core.Slots_0.Signal'Class;
 
-   not overriding procedure Set_Disabled
+   overriding procedure Set_Disabled
     (Self     : in out Abstract_Spin_Box;
      Disabled : Boolean := True);
    --  Available as slot.
 
-   not overriding procedure Set_Enabled
+   overriding procedure Set_Enabled
     (Self    : in out Abstract_Spin_Box;
      Enabled : Boolean := True);
    --  Available as slot.
@@ -78,14 +78,6 @@ package Web.UI.Widgets.Spin_Boxes is
    -----------
    -- Slots --
    -----------
-
-   function Set_Disabled_Slot
-    (Self : in out Abstract_Spin_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class;
-
-   function Set_Enabled_Slot
-    (Self : in out Abstract_Spin_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class;
 
 --   function Step_Down_Slot
 --    (Self : in out Abstract_Spin_Box'Class)
@@ -116,22 +108,6 @@ private
    -----------
    -- Slots --
    -----------
-
-   package Set_Disabled_Slots is
-     new Web.UI.Boolean_Slots.Generic_Slots (Abstract_Spin_Box, Set_Disabled);
-
-   function Set_Disabled_Slot
-    (Self : in out Abstract_Spin_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class
-         renames Set_Disabled_Slots.To_Slot;
-
-   package Set_Enabled_Slots is
-     new Web.UI.Boolean_Slots.Generic_Slots (Abstract_Spin_Box, Set_Enabled);
-
-   function Set_Enabled_Slot
-    (Self : in out Abstract_Spin_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class
-         renames Set_Enabled_Slots.To_Slot;
 
 --   package Step_Down_Slots is
 --     new Core.Slots_0.Generic_Slots (Abstract_Spin_Box, Step_Down);

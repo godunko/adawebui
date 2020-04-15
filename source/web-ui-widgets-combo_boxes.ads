@@ -62,12 +62,12 @@ package Web.UI.Widgets.Combo_Boxes is
    type Combo_Box_Access is access all Abstract_Combo_Box'Class
      with Storage_Size => 0;
 
-   not overriding procedure Set_Disabled
+   overriding procedure Set_Disabled
     (Self     : in out Abstract_Combo_Box;
      Disabled : Boolean := True);
    --  Available as slot.
 
-   not overriding procedure Set_Enabled
+   overriding procedure Set_Enabled
     (Self    : in out Abstract_Combo_Box;
      Enabled : Boolean := True);
    --  Available as slot.
@@ -80,18 +80,6 @@ package Web.UI.Widgets.Combo_Boxes is
 --    (Self : in out Combo_Box;
 --     To   : League.Strings.Universal_String);
 --   --  Available as slot.
-
-   -----------
-   -- Slots --
-   -----------
-
-   function Set_Disabled_Slot
-    (Self : in out Abstract_Combo_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class;
-
-   function Set_Enabled_Slot
-    (Self : in out Abstract_Combo_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class;
 
    -------------
    -- Signals --
@@ -129,25 +117,5 @@ private
    overriding procedure Change_Event (Self : in out Abstract_Combo_Box);
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);
-
-   -----------
-   -- Slots --
-   -----------
-
-   package Set_Disabled_Slots is
-     new Web.UI.Boolean_Slots.Generic_Slots (Abstract_Combo_Box, Set_Disabled);
-
-   function Set_Disabled_Slot
-    (Self : in out Abstract_Combo_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class
-         renames Set_Disabled_Slots.To_Slot;
-
-   package Set_Enabled_Slots is
-     new Web.UI.Boolean_Slots.Generic_Slots (Abstract_Combo_Box, Set_Enabled);
-
-   function Set_Enabled_Slot
-    (Self : in out Abstract_Combo_Box'Class)
-       return Web.UI.Boolean_Slots.Slot'Class
-         renames Set_Enabled_Slots.To_Slot;
 
 end Web.UI.Widgets.Combo_Boxes;

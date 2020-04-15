@@ -81,7 +81,7 @@ package body Web.UI.Widgets.Spin_Boxes is
    -- Set_Disabled --
    ------------------
 
-   not overriding procedure Set_Disabled
+   overriding procedure Set_Disabled
     (Self     : in out Abstract_Spin_Box;
      Disabled : Boolean := True)
    is
@@ -96,7 +96,7 @@ package body Web.UI.Widgets.Spin_Boxes is
    -- Set_Enabled --
    -----------------
 
-   not overriding procedure Set_Enabled
+   overriding procedure Set_Enabled
     (Self    : in out Abstract_Spin_Box;
      Enabled : Boolean := True) is
    begin
