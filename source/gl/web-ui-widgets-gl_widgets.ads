@@ -98,6 +98,14 @@ package Web.UI.Widgets.GL_Widgets is
    not overriding procedure Context_Restored
     (Self : in out Abstract_GL_Widget) is null;
 
+   overriding procedure Set_Disabled
+    (Self     : in out Abstract_GL_Widget;
+     Disabled : Boolean := True) is null;
+
+   overriding procedure Set_Enabled
+    (Self    : in out Abstract_GL_Widget;
+     Enabled : Boolean := True) is null;
+
    package Constructors is
 
       procedure Initialize
