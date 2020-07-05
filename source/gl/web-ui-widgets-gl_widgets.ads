@@ -102,10 +102,6 @@ package Web.UI.Widgets.GL_Widgets is
     (Self     : in out Abstract_GL_Widget;
      Disabled : Boolean := True) is null;
 
-   overriding procedure Set_Enabled
-    (Self    : in out Abstract_GL_Widget;
-     Enabled : Boolean := True) is null;
-
    package Constructors is
 
       procedure Initialize

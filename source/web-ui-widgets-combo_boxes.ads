@@ -41,7 +41,6 @@
 ------------------------------------------------------------------------------
 --  $Revision: 5761 $ $Date: 2017-05-20 11:06:31 +0300 (Sat, 20 May 2017) $
 ------------------------------------------------------------------------------
---with League.Strings;
 
 with Web.HTML.Selects;
 
@@ -65,11 +64,6 @@ package Web.UI.Widgets.Combo_Boxes is
    overriding procedure Set_Disabled
     (Self     : in out Abstract_Combo_Box;
      Disabled : Boolean := True);
-   --  Available as slot.
-
-   overriding procedure Set_Enabled
-    (Self    : in out Abstract_Combo_Box;
-     Enabled : Boolean := True);
    --  Available as slot.
 
 --   function Current_Index

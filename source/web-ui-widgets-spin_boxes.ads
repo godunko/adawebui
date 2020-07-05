@@ -62,11 +62,6 @@ package Web.UI.Widgets.Spin_Boxes is
      Disabled : Boolean := True);
    --  Available as slot.
 
-   overriding procedure Set_Enabled
-    (Self    : in out Abstract_Spin_Box;
-     Enabled : Boolean := True);
-   --  Available as slot.
-
 --   not overriding procedure Step_Down
 --    (Self : in out Abstract_Spin_Box) is abstract;
 --   --  Available as slot.

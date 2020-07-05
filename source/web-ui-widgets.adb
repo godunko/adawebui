@@ -276,6 +276,17 @@ package body Web.UI.Widgets is
 --   end Handle_Event;
 
    -----------------
+   -- Set_Enabled --
+   -----------------
+
+   not overriding procedure Set_Enabled
+    (Self    : in out Abstract_Widget;
+     Enabled : Boolean := True) is
+   begin
+      Abstract_Widget'Class (Self).Set_Disabled (not Enabled);
+   end Set_Enabled;
+
+   -----------------
    -- Set_Visible --
    -----------------
 

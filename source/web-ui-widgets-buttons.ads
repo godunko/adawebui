@@ -53,10 +53,6 @@ package Web.UI.Widgets.Buttons is
 --   not overriding function Clicked_Signal
 --    (Self : in out Abstract_Button)
 --       return not null access Core.Slots_0.Signal'Class;
---
---   not overriding procedure Set_Enabled
---    (Self    : in out Abstract_Button;
---     Enabled : Boolean) is abstract;
 
    package Constructors is
 

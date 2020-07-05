@@ -41,6 +41,7 @@
 ------------------------------------------------------------------------------
 --  $Revision: 5872 $ $Date: 2018-09-22 11:56:07 +0200 (Sat, 22 Sep 2018) $
 ------------------------------------------------------------------------------
+
 private with Web.DOM.Events;
 private with Web.DOM.Event_Listeners;
 with Web.HTML.Elements;
@@ -66,7 +67,7 @@ package Web.UI.Widgets is
 
    not overriding procedure Set_Enabled
     (Self    : in out Abstract_Widget;
-     Enabled : Boolean := True) is abstract;
+     Enabled : Boolean := True);
    --  Available as slot.
 
    not overriding procedure Set_Visible

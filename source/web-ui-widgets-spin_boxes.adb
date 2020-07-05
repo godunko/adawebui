@@ -92,15 +92,4 @@ package body Web.UI.Widgets.Spin_Boxes is
       Element.Set_Disabled (Disabled);
    end Set_Disabled;
 
-   -----------------
-   -- Set_Enabled --
-   -----------------
-
-   overriding procedure Set_Enabled
-    (Self    : in out Abstract_Spin_Box;
-     Enabled : Boolean := True) is
-   begin
-      Self.Set_Disabled (not Enabled);
-   end Set_Enabled;
-
 end Web.UI.Widgets.Spin_Boxes;

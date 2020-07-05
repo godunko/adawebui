@@ -78,8 +78,4 @@ private
     (Self     : in out Label;
      Disabled : Boolean := True);
 
-   overriding procedure Set_Enabled
-    (Self    : in out Label;
-     Enabled : Boolean := True);
-
 end Web.UI.Widgets.Labels;
