@@ -47,6 +47,20 @@ with Web.Window;
 package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
 
    ------------------
+   -- Change_Event --
+   ------------------
+
+   overriding procedure Change_Event (Self : in out Combo_Box) is
+      Value : constant Web.Strings.Web_String
+        := Combo_Box (Self).Element.As_HTML_Select.Get_Value;
+
+   begin
+      Abstract_Combo_Box (Self).Change_Event;
+      Self.Current_Value_Changed.Emit
+        (Data_Type'Wide_Wide_Value (Value.To_Wide_Wide_String));
+   end Change_Event;
+
+   ------------------
    -- Constructors --
    ------------------
 
@@ -94,6 +108,17 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
       end Initialize;
 
    end Constructors;
+
+   ----------------------------------
+   -- Current_Value_Changed_Signal --
+   ----------------------------------
+
+   not overriding function Current_Value_Changed_Signal
+    (Self : in out Combo_Box)
+      return not null access Data_Slots.Signal'Class is
+   begin
+      return Self.Current_Value_Changed'Unchecked_Access;
+   end Current_Value_Changed_Signal;
 
    -----------------------
    -- Get_Current_Value --

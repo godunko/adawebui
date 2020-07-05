@@ -83,9 +83,9 @@ package Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
    -- Signals --
    -------------
 
---   not overriding function Current_Index_Changed_Signal
---    (Self : in out Combo_Box)
---       return not null access WUI.String_Slots.Signal'Class;
+   not overriding function Current_Value_Changed_Signal
+    (Self : in out Combo_Box)
+      return not null access Data_Slots.Signal'Class;
 
    package Constructors is
 
@@ -106,10 +106,11 @@ private
 
    type Combo_Box is
      new Web.UI.Widgets.Combo_Boxes.Abstract_Combo_Box with record
-null;
---      Current_Index_Changed : aliased
---        Data_Slots_Emitters.Emitter (Combo_Box'Unchecked_Access);
+      Current_Value_Changed : aliased
+        Data_Slots_Emitters.Emitter (Combo_Box'Unchecked_Access);
    end record;
+
+   overriding procedure Change_Event (Self : in out Combo_Box);
 
 --   overriding procedure Input_Event (Self : in out Combo_Box);
 
