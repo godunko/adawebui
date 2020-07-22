@@ -64,10 +64,10 @@ package Web.UI.Widgets.Spin_Boxes.Generic_Floats is
 
    function Get_Value (Self : Float_Spin_Box'Class) return Data_Type;
 
---   not overriding procedure Set_Value
---    (Self : in out Float_Spin_Box;
---     To   : Data_Type);
---   --  Available as slot.
+   not overriding procedure Set_Value
+    (Self : in out Float_Spin_Box;
+     To   : Data_Type);
+   --  Available as slot.
 
    -------------
    -- Signals --
@@ -77,12 +77,12 @@ package Web.UI.Widgets.Spin_Boxes.Generic_Floats is
     (Self : in out Float_Spin_Box'Class)
        return not null access Float_Slots.Signal'Class;
 
---   -----------
---   -- Slots --
---   -----------
---
---   function Set_Value_Slot
---    (Self : in out Float_Spin_Box'Class) return Float_Slots.Slot'Class;
+   -----------
+   -- Slots --
+   -----------
+
+   function Set_Value_Slot
+    (Self : in out Float_Spin_Box'Class) return Float_Slots.Slot'Class;
 
    package Constructors is
 
@@ -118,15 +118,15 @@ private
 
    overriding procedure Change_Event (Self : in out Float_Spin_Box);
 
---   -----------
---   -- Slots --
---   -----------
---
---   package Set_Value_Slots is
---     new Float_Slots.Generic_Slots (Float_Spin_Box, Set_Value);
---
---   function Set_Value_Slot
---    (Self : in out Float_Spin_Box'Class) return Float_Slots.Slot'Class
---       renames Set_Value_Slots.To_Slot;
+   -----------
+   -- Slots --
+   -----------
+
+   package Set_Value_Slots is
+     new Float_Slots.Generic_Slots (Float_Spin_Box, Set_Value);
+
+   function Set_Value_Slot
+    (Self : in out Float_Spin_Box'Class) return Float_Slots.Slot'Class
+       renames Set_Value_Slots.To_Slot;
 
 end Web.UI.Widgets.Spin_Boxes.Generic_Floats;

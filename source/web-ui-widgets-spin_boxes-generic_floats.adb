@@ -222,17 +222,17 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
       end if;
    end Internal_Set_Value;
 
---   ---------------
---   -- Set_Value --
---   ---------------
---
---   not overriding procedure Set_Value
---    (Self : in out Float_Spin_Box;
---     To   : Data_Type) is
---   begin
---      Self.Internal_Set_Value (To, False);
---   end Set_Value;
---
+   ---------------
+   -- Set_Value --
+   ---------------
+
+   not overriding procedure Set_Value
+    (Self : in out Float_Spin_Box;
+     To   : Data_Type) is
+   begin
+      Self.Internal_Set_Value (To, False);
+   end Set_Value;
+
 --   ---------------
 --   -- Step_Down --
 --   ---------------
