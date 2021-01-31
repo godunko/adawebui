@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2016-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2016-2021, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -42,9 +42,6 @@
 --  $Revision: 5682 $ $Date: 2017-01-11 00:55:53 +0300 (Wed, 11 Jan 2017) $
 ------------------------------------------------------------------------------
 
---with Web.DOM.Elements;
---with Web.DOM.Rects;
-
 package body Web.UI.Events.Mouse is
 
    ------------------
@@ -70,31 +67,26 @@ package body Web.UI.Events.Mouse is
    -- Buttons --
    -------------
 
---   function Buttons
---    (Self : Abstract_Mouse_Event'Class) return Mouse_Buttons
---   is
---      use type WebAPI.DOM_Unsigned_Short;
---
---      Buttons : constant WebAPI.DOM_Unsigned_Short
---        := WebAPI.UI_Events.Mouse.Mouse_Event'Class
---            (Self.Event.all).Get_Buttons;
---      Result  : Mouse_Buttons := (others => False);
---
---   begin
---      if (Buttons and 2#0001#) /= 0 then
---         Result (Button_1) := True;
---      end if;
---
---      if (Buttons and 2#0010#) /= 0 then
---         Result (Button_2) := True;
---      end if;
---
---      if (Buttons and 2#0100#) /= 0 then
---         Result (Button_3) := True;
---      end if;
---
---      return Result;
---   end Buttons;
+   function Buttons (Self : Mouse_Event'Class) return Mouse_Buttons is
+      Buttons : constant Web.DOM_Unsigned_Short
+        := Self.Event.As_Mouse_Event.Buttons;
+      Result  : Mouse_Buttons := (others => False);
+
+   begin
+      if (Buttons and 2#0001#) /= 0 then
+         Result (Button_1) := True;
+      end if;
+
+      if (Buttons and 2#0010#) /= 0 then
+         Result (Button_2) := True;
+      end if;
+
+      if (Buttons and 2#0100#) /= 0 then
+         Result (Button_3) := True;
+      end if;
+
+      return Result;
+   end Buttons;
 
    -------
    -- X --
