@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2017-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2017-2022, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -184,5 +184,39 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
 --         --  'input' event is not send when value is updated programmatically.
 --      end if;
 --   end Set_Current_Index;
+
+   -----------------------
+   -- Set_Current_Value --
+   -----------------------
+
+   procedure Set_Current_Value
+     (Self : in out Combo_Box'Class;
+      To   : Data_Type)
+   is
+      Old     : constant Data_Type := Self.Get_Current_Value;
+      Image   : constant Wide_Wide_String := Data_Type'Wide_Wide_Image (To);
+      First   : Positive := Image'First;
+      Element : Web.HTML.Selects.HTML_Select_Element :=
+        Self.Element.As_HTML_Select;
+
+   begin
+      if Image (First) = ' ' then
+         --  When generic package is instantiated for integer type,
+         --  Wide_Wide_Image attribute adds space at the beginning
+         --  for positive values. Remove this space to be able to
+         --  find HTMLOptionElement by value.
+
+         First := First + 1;
+      end if;
+
+      Element.Set_Value
+        (Web.Strings.To_Web_String (Image (First .. Image'Last)));
+
+      if Old /= Self.Get_Current_Value then
+         --  Emit Current_Value_Changed signal when value has been changed.
+
+         Self.Current_Value_Changed.Emit (To);
+      end if;
+   end Set_Current_Value;
 
 end Web.UI.Widgets.Combo_Boxes.Generic_Enumerations;

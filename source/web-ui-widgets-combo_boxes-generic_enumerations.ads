@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2017-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2017-2022, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -73,6 +73,10 @@ package Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
      with Storage_Size => 0;
 
    function Get_Current_Value (Self : in out Combo_Box'Class) return Data_Type;
+
+   procedure Set_Current_Value
+     (Self : in out Combo_Box'Class;
+      To   : Data_Type);
 
 --   not overriding procedure Set_Current_Index
 --    (Self : in out Combo_Box;
