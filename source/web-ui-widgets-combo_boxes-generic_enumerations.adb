@@ -193,7 +193,10 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
      (Self : in out Combo_Box'Class;
       To   : Data_Type)
    is
-      Old     : constant Data_Type := Self.Get_Current_Value;
+      use type Web.Strings.Web_String;
+
+      Old     : constant Web.Strings.Web_String
+        := Self.Element.As_HTML_Select.Get_Value;
       Image   : constant Wide_Wide_String := Data_Type'Wide_Wide_Image (To);
       First   : Positive := Image'First;
       Element : Web.HTML.Selects.HTML_Select_Element :=
@@ -212,7 +215,7 @@ package body Web.UI.Widgets.Combo_Boxes.Generic_Enumerations is
       Element.Set_Value
         (Web.Strings.To_Web_String (Image (First .. Image'Last)));
 
-      if Old /= Self.Get_Current_Value then
+      if Old /= Self.Element.As_HTML_Select.Get_Value then
          --  Emit Current_Value_Changed signal when value has been changed.
 
          Self.Current_Value_Changed.Emit (To);
