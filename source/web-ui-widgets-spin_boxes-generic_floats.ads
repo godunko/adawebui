@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2017-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2017-2022, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -106,6 +106,8 @@ private
    record
       Last_Value    : Data_Type;
       --  Last valid value.
+      Aft           : Natural;
+      --  Number of digits after decimal point.
       Value_Changed : aliased
         Float_Emitters.Emitter (Float_Spin_Box'Unchecked_Access);
    end record;

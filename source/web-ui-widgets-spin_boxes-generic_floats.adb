@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2016-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2016-2022, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -42,6 +42,10 @@
 --  $Revision: 5733 $ $Date: 2017-01-28 14:53:14 +0300 (Sat, 28 Jan 2017) $
 ------------------------------------------------------------------------------
 
+pragma Warnings (Off, "is an internal GNAT unit");
+with System.Img_LLF;
+pragma Warnings (On, "is an internal GNAT unit");
+
 with Web.HTML.Validity_States;
 with Web.Window;
 
@@ -56,7 +60,9 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    --  Sets value, emit signal when value was modified, and update value of
    --  input element when Update is True.
 
-   function Image (Item : Data_Type) return Web.Strings.Web_String;
+   function Image
+     (Item : Data_Type;
+      Aft  : Natural) return Web.Strings.Web_String;
 
    ------------------
    -- Change_Event --
@@ -147,7 +153,25 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
 
          Self.Last_Value :=
            Data_Type'Wide_Wide_Value
-            (Element.Get_Value.To_Wide_Wide_String);
+             (Element.Get_Value.To_Wide_Wide_String);
+
+         --  Compute number of decimal digits after the point
+
+         declare
+            Step : constant Wide_Wide_String
+              := Element.Get_Step.To_Wide_Wide_String;
+
+         begin
+            Self.Aft := 0;
+
+            for J in Step'Range loop
+               if Step (J) = '.' then
+                  Self.Aft := Step'Last - J;
+
+                  exit;
+               end if;
+            end loop;
+         end;
       end Initialize;
 
    end Constructors;
@@ -165,19 +189,42 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    -- Image --
    -----------
 
-   function Image (Item : Data_Type) return Web.Strings.Web_String is
-      Aux   : constant Wide_Wide_String := Data_Type'Wide_Wide_Image (Item);
-      Image : constant Wide_Wide_String
-        := Aux
-            ((if Aux (Aux'First) = ' ' then Aux'First + 1 else Aux'First)
-               .. Aux'Last);
+   function Image
+     (Item : Data_Type;
+      Aft  : Natural) return Web.Strings.Web_String
+   is
+      Buffer      : String (1 .. 32);
+      Image       : Wide_Wide_String (1 .. 32);
+      Buffer_Last : Natural := 0;
+      Image_Last  : Natural := 0;
 
    begin
-      --  XXX Need to be rewritten to avoid use of exponential form when
-      --  possible. Most probably it should use configuration of underlying
-      --  'input' element.
+      --  Convert to string.
 
-      return +Image;
+      System.Img_LLF.Set_Image_Long_Long_Float
+        (Long_Long_Float (Item),
+         Buffer,
+         Buffer_Last,
+         Data_Type'Digits,
+         Aft,
+         0);
+
+      --  Remove leading spaces and trailing digits when necessary.
+
+      for J in 1 .. Buffer_Last loop
+         if Buffer (J) /= ' ' then
+            if Buffer (J) = '.' and Aft = 0 then
+               exit;
+
+            else
+               Image_Last := Image_Last + 1;
+               Image (Image_Last) :=
+                 Wide_Wide_Character'Val (Character'Pos (Buffer (J)));
+            end if;
+         end if;
+      end loop;
+
+      return +Image (1 .. Image_Last);
    end Image;
 
    -----------------
@@ -213,12 +260,12 @@ package body Web.UI.Widgets.Spin_Boxes.Generic_Floats is
    begin
       if Self.Last_Value /= To then
          Self.Last_Value := To;
-         Input.Set_Value (Image (To));
+         Input.Set_Value (Image (To, Self.Aft));
          Self.Value_Changed.Emit (To);
          --  'input' event is not send when value is changed programmatically.
 
       elsif Update then
-         Input.Set_Value (Image (To));
+         Input.Set_Value (Image (To, Self.Aft));
       end if;
    end Internal_Set_Value;
 
