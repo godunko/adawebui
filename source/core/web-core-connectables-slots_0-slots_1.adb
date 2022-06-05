@@ -8,7 +8,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 --                                                                          --
--- Copyright © 2016-2020, Vadim Godunko <vgodunko@gmail.com>                --
+-- Copyright © 2016-2022, Vadim Godunko <vgodunko@gmail.com>                --
 -- All rights reserved.                                                     --
 --                                                                          --
 -- Redistribution and use in source and binary forms, with or without       --
@@ -52,7 +52,9 @@ package body Web.Core.Connectables.Slots_0.Slots_1 is
     (Self : Slot) return not null Slot_End_Access is
    begin
       raise Program_Error with "Slot.Create_Slot_End must be overrided";
+      pragma Warnings (Off, "null value not allowed here");
       return null;
+      pragma Warnings (On, "null value not allowed here");
    end Create_Slot_End;
 
 end Web.Core.Connectables.Slots_0.Slots_1;
